@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#111827" />
+  <title>Private Chat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="ambient one"></div>
+  <div class="ambient two"></div>
+
+  <main class="shell">
+    <section id="loginView" class="card login-card">
+      <div class="lock-icon">🔐</div>
+      <p class="eyebrow">INVITE-ONLY SPACE</p>
+      <h1>Private Chat</h1>
+      <p class="subtext">Enter the shared password to open the room.</p>
+
+      <form id="loginForm">
+        <label for="password">Room password</label>
+        <div class="password-row">
+          <input id="password" name="password" type="password" inputmode="numeric"
+                 autocomplete="current-password" maxlength="20" required
+                 placeholder="Enter password" />
+          <button id="togglePassword" class="icon-button" type="button" aria-label="Show password">👁</button>
+        </div>
+        <p id="loginError" class="error" aria-live="polite"></p>
+        <button class="primary-button" type="submit">Enter private room</button>
+      </form>
+    </section>
+
+    <section id="chatView" class="chat-card hidden">
+      <header class="chat-header">
+        <div>
+          <p class="eyebrow">PASSWORD PROTECTED</p>
+          <h2>Private Room</h2>
+        </div>
+        <div class="header-actions">
+          <span class="online-pill"><span class="dot"></span><span id="onlineCount">1 online</span></span>
+          <button id="logoutButton" class="ghost-button" type="button">Leave</button>
+        </div>
+      </header>
+
+      <div class="identity-bar">
+        <label for="displayName">Your name</label>
+        <input id="displayName" maxlength="24" placeholder="Guest" />
+      </div>
+
+      <div id="messages" class="messages" aria-live="polite"></div>
+
+      <form id="messageForm" class="composer">
+        <textarea id="messageInput" rows="1" maxlength="1000"
+                  placeholder="Write a message…" required></textarea>
+        <button class="send-button" type="submit" aria-label="Send message">➤</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
