@@ -1,0 +1,39 @@
+# Private Chat V6 — Cloudinary Persistent History
+
+## Default password
+`1419`
+
+## What changed
+- Chat history is stored in Cloudinary as a private-chat raw JSON asset instead of Render's temporary filesystem.
+- Photos, videos, audio/voice notes, PDFs and other supported files are uploaded to Cloudinary.
+- Signing out or closing the browser does NOT delete chat history.
+- When the Render service restarts or wakes up, it reloads the latest saved chat history from Cloudinary.
+- Delete for Everyone removes the message from the saved history and also requests deletion of its Cloudinary attachment.
+- Two-member room limit, left/right messages, replies, stickers, audio/video calls and front/back camera switching are retained.
+
+## Cloudinary setup
+Create or open your Cloudinary account. In the Cloudinary Console, copy the API environment variable that looks like:
+
+`cloudinary://API_KEY:API_SECRET@CLOUD_NAME`
+
+Do NOT put this value in `public/app.js` or `index.html`.
+
+## Render environment variables
+Add these in Render -> your Web Service -> Environment:
+
+- `CHAT_PASSWORD` = `1419`
+- `SESSION_SECRET` = a long random secret
+- `NODE_ENV` = `production`
+- `CLOUDINARY_URL` = your Cloudinary API environment variable
+
+Optional:
+- `CLOUDINARY_HISTORY_PUBLIC_ID` = `private-chat-system/message-history.json`
+
+## Render commands
+- Build Command: `npm install`
+- Start Command: `npm start`
+
+No Render Persistent Disk is required for the chat history or uploaded media in this version.
+
+## Important
+Keep `CLOUDINARY_URL` secret. It contains your Cloudinary API secret and must only be configured as a server-side Render environment variable.
